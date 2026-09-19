@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "title": "Roger Bentcha — System architect",
+    "description": "Portfolio of Roger Bentcha, system architect: craft, background and photographies."
+  },
+  "nav": {
+    "home": "Home",
+    "craft": "Craft",
+    "photographies": "Photographies"
+  },
+  "actions": {
+    "emailMe": "Email me",
+    "downloadCv": "Download my cv",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "navigation": "Main navigation"
+  },
+  "home": {
+    "name": "Roger Bentcha",
+    "role": "System architect",
+    "description": {
+      "title": "Description",
+      "body": "Lorem ipsum dolor sit amet consectetur. Porttitor etiam scelerisque leo sagittis nunc interdum massa. Aliquet risus quam pretium egestas faucibus ultricies. Mollis viverra tellus faucibus lacus morbi consectetur amet. Id egestas ipsum at amet dignissim magna congue. Quam non eleifend urna arcu imperdiet. Posuere lorem urna eget."
+    },
+    "experiences": {
+      "title": "Experiences",
+      "items": [
+        {
+          "company": "hellio",
+          "role": "Fullstack JS Engineer",
+          "period": "2024-2026"
+        },
+        {
+          "company": "hellio",
+          "role": "Fullstack JS Engineer",
+          "period": "2024-2026"
+        }
+      ]
+    },
+    "formations": {
+      "title": "Formations",
+      "items": [
+        {
+          "level": "Specialisation degree",
+          "title": "SI Architect",
+          "school": "CentraleSupélec",
+          "period": "2026-2027"
+        },
+        {
+          "level": "Master degree",
+          "title": "Software Architecture",
+          "school": "ESGI",
+          "period": "2024-2026"
+        },
+        {
+          "level": "Bachelor degree",
+          "title": "Software Architecture",
+          "school": "ESGI",
+          "period": "2024-2026"
+        }
+      ]
+    },
+    "more": {
+      "title": "More",
+      "body": "We can connect together in {twitter} and {github}",
+      "twitter": "Twitter X",
+      "github": "Github"
+    }
+  },
+  "craft": {
+    "title": "Craft",
+    "body": "This page is coming soon."
+  },
+  "photographies": {
+    "title": "Photographies",
+    "body": "This page is coming soon."
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "title": "Roger Bentcha — Architecte système",
+    "description": "Portfolio de Roger Bentcha, architecte système : projets, parcours et photographies."
+  },
+  "nav": {
+    "home": "Accueil",
+    "craft": "Projets",
+    "photographies": "Photographies"
+  },
+  "actions": {
+    "emailMe": "Écrivez-moi",
+    "downloadCv": "Télécharger mon CV",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "navigation": "Navigation principale"
+  },
+  "home": {
+    "name": "Roger Bentcha",
+    "role": "Architecte système",
+    "description": {
+      "title": "Description",
+      "body": "Lorem ipsum dolor sit amet consectetur. Porttitor etiam scelerisque leo sagittis nunc interdum massa. Aliquet risus quam pretium egestas faucibus ultricies. Mollis viverra tellus faucibus lacus morbi consectetur amet. Id egestas ipsum at amet dignissim magna congue. Quam non eleifend urna arcu imperdiet. Posuere lorem urna eget."
+    },
+    "experiences": {
+      "title": "Expériences",
+      "items": [
+        {
+          "company": "hellio",
+          "role": "Ingénieur Fullstack JS",
+          "period": "2024-2026"
+        },
+        {
+          "company": "hellio",
+          "role": "Ingénieur Fullstack JS",
+          "period": "2024-2026"
+        }
+      ]
+    },
+    "formations": {
+      "title": "Formations",
+      "items": [
+        {
+          "level": "Mastère spécialisé",
+          "title": "Architecte SI",
+          "school": "CentraleSupélec",
+          "period": "2026-2027"
+        },
+        {
+          "level": "Master",
+          "title": "Architecture logicielle",
+          "school": "ESGI",
+          "period": "2024-2026"
+        },
+        {
+          "level": "Licence",
+          "title": "Architecture logicielle",
+          "school": "ESGI",
+          "period": "2024-2026"
+        }
+      ]
+    },
+    "more": {
+      "title": "Plus",
+      "body": "Retrouvons-nous sur {twitter} et {github}",
+      "twitter": "Twitter X",
+      "github": "Github"
+    }
+  },
+  "craft": {
+    "title": "Projets",
+    "body": "Cette page arrive bientôt."
+  },
+  "photographies": {
+    "title": "Photographies",
+    "body": "Cette page arrive bientôt."
+  }
+}
