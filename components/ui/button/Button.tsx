@@ -29,7 +29,7 @@ export function Button({
       nativeButton={nativeButton ?? (!isValidElement(render) || render.type === "button")}
       className={cn(
         "inline-flex h-8 cursor-pointer items-center justify-center gap-2.5 rounded-2xl px-4 py-2 text-xs leading-4 font-medium whitespace-nowrap transition-colors select-none",
-        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:scale-[98%]",
         VARIANT_CLASSES[variant],
         className,
       )}

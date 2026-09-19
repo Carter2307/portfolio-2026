@@ -15,7 +15,7 @@ export function Header({ actions }: HeaderProps) {
   const isMenuOpen = useMenuStore((state) => state.isOpen);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white pt-14 lg:static lg:pt-6">
+    <header className="sticky top-0 z-50 w-full bg-white pt-6 lg:static lg:pt-6">
       <div className="mx-auto flex w-full max-w-[1128px] items-center justify-between px-5">
         <MenuToggle
           className="ml-4 lg:hidden"

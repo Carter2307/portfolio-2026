@@ -41,7 +41,6 @@ export default async function RootLayout({ children }: LayoutProps<"/[lang]">) {
           <Dock items={navItems} label={dictionary.actions.navigation} />
           <MobileMenu items={navItems} label={dictionary.actions.navigation} />
         </QueryProvider>
-        <LayoutGuide />
       </body>
     </html>
   );

@@ -18,7 +18,7 @@ export function Dock({ items, label }: DockProps) {
 
   return (
     <TooltipProvider delay={150} closeDelay={80}>
-      <nav aria-label={label} className="fixed bottom-10 left-1/2 hidden -translate-x-1/2 rounded-[32px] bg-gray-100 px-6 py-4 lg:flex">
+      <nav aria-label={label} className="fixed bottom-10 left-1/2 hidden -translate-x-1/2 rounded-[28px] bg-gray-100 px-3 py-3 lg:flex">
         {items.map((item) => {
           const isActive = pathname === item.href;
 
@@ -28,11 +28,11 @@ export function Dock({ items, label }: DockProps) {
                 href={item.href}
                 aria-label={item.label}
                 aria-current={isActive ? "page" : undefined}
-                className="flex items-center rounded-2xl px-4 py-2 transition-colors hover:bg-gray-200"
+                className="group flex items-center px-4 py-2 transition-colors"
               >
                 <Icon
                   name={item.icon}
-                  className={cn("transition-colors", isActive ? "text-primary" : "text-slate-500")}
+                  className={cn("transition-colors group-hover:text-primary!", isActive ? "text-primary" : "text-slate-500")}
                 />
               </Link>
             </Tooltip>
