@@ -2,6 +2,7 @@
 // Pointer: raises a hill, so contour rings gather around it.
 
 const CONTOURS = 14.0;
+const OPACITY = 0.35; // how strongly the chart is drawn over the page
 
 fn field(px: vec2f, uv: vec2f) -> f32 {
   let t = u.time * 0.03;
@@ -19,5 +20,5 @@ fn field(px: vec2f, uv: vec2f) -> f32 {
   let contour = 1.0 - smoothstep(0.0, 1.2 * fwidth(bands), edge);
 
   let base = mix(backdrop(px), 0.35 + terrace, 0.45);
-  return base - 0.38 * contour;
+  return veil(px, base - 0.38 * contour, OPACITY);
 }
