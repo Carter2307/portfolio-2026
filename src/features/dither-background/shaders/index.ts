@@ -1,9 +1,13 @@
+import aurora from './aurora.wgsl?raw'
 import cells from './cells.wgsl?raw'
 import common from './common.wgsl?raw'
 import drift from './drift.wgsl?raw'
+import dunes from './dunes.wgsl?raw'
+import grass from './grass.wgsl?raw'
 import rain from './rain.wgsl?raw'
 import relief from './relief.wgsl?raw'
 import ripples from './ripples.wgsl?raw'
+import stars from './stars.wgsl?raw'
 
 /** Display names live in the i18n messages (`background.options`). */
 export interface ShaderDefinition {
@@ -20,6 +24,10 @@ export const SHADERS = [
   { id: 'relief', body: relief },
   { id: 'cells', body: cells },
   { id: 'rain', body: rain, constants: { WHITE_BACKGROUND: 1 } },
+  { id: 'stars', body: stars },
+  { id: 'dunes', body: dunes },
+  { id: 'grass', body: grass },
+  { id: 'aurora', body: aurora },
 ] as const satisfies readonly ShaderDefinition[]
 
 export type ShaderId = (typeof SHADERS)[number]['id']

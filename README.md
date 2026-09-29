@@ -1,6 +1,6 @@
 # Portfolio — React · Vite · TypeScript · React Router · WebGPU
 
-Portfolio de Roger Bentcha : une page, un fond animé en WebGPU (5 shaders au choix).
+Portfolio de Roger Bentcha : une page, un fond animé en WebGPU (9 shaders au choix).
 
 ```bash
 npm install
@@ -35,6 +35,10 @@ src/
 │       │   ├── relief.wgsl       # Relief : carte topographique en isolignes
 │       │   ├── cells.wgsl        # Cellules : Voronoï animé
 │       │   ├── rain.wgsl         # Averse : briques 3×3 sur fond blanc, atténuées derrière le texte
+│       │   ├── stars.wgsl        # Constellations : étoiles qui scintillent, reliées autour du pointeur
+│       │   ├── dunes.wgsl        # Dunes : rides de sable qui glissent avec le vent
+│       │   ├── grass.wgsl        # Herbes : frange de brins en bas de l'écran, écartés par le pointeur
+│       │   ├── aurora.wgsl       # Aurores : rideaux striés qui ondulent
 │       │   └── index.ts          # registre : id + source WGSL assemblée (libellés dans i18n/messages)
 │       └── lib/
 │           ├── renderer.ts       # WebGPU : device, pipelines (cache par shader), uniforms, draw
