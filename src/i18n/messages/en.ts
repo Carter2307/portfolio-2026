@@ -17,6 +17,7 @@ export const en: Messages = {
       ripples: { label: 'Ripples', technique: 'Interference' },
       relief: { label: 'Relief', technique: 'Contours' },
       cells: { label: 'Cells', technique: 'Voronoi' },
+      rain: { label: 'Downpour', technique: 'Shards' },
       none: { label: 'None', technique: 'Plain white' },
     },
   },

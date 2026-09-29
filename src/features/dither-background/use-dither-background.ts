@@ -7,11 +7,17 @@ import type { DitherOptions, DitherStatus } from './lib/types'
 export const initialDitherStatus = (): DitherStatus =>
   DitherRenderer.isSupported() ? 'pending' : 'unsupported'
 
+interface DitherBindings {
+  onStatusChange?: (status: DitherStatus) => void
+  /** Element kept readable by shaders that support it (read once, at mount). */
+  focusRef?: RefObject<HTMLElement | null>
+}
+
 /** Mounts the WebGPU background on `canvasRef` once; option changes are applied live. */
 export function useDitherBackground(
   canvasRef: RefObject<HTMLCanvasElement | null>,
   { cell, speed, shader }: DitherOptions,
-  onStatusChange?: (status: DitherStatus) => void,
+  { onStatusChange, focusRef }: DitherBindings = {},
 ): DitherStatus {
   const [status, setStatus] = useState<DitherStatus>(initialDitherStatus)
   const controllerRef = useRef<DitherController | null>(null)
@@ -27,6 +33,7 @@ export function useDitherBackground(
     if (!canvas) return
     const controller = mountDitherBackground(canvas, {
       ...initialOptions.current,
+      focusElement: focusRef?.current,
       onStatusChange: (next) => {
         setStatus(next)
         onStatusChangeRef.current?.(next)
@@ -37,7 +44,7 @@ export function useDitherBackground(
       controller.dispose()
       controllerRef.current = null
     }
-  }, [canvasRef])
+  }, [canvasRef, focusRef])
 
   useEffect(() => {
     controllerRef.current?.setOptions({ cell, speed, shader })

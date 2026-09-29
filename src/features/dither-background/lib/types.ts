@@ -11,7 +11,12 @@ export interface FrameUniforms {
   time: number
   /** Pointer influence, 0..1. */
   amount: number
+  /** Readable column `[left, right]`, in cells; `[0, 0]` when there is none. */
+  focus: Vec2
 }
+
+/** What the pure scene state provides; the controller adds layout data. */
+export type SceneUniforms = Omit<FrameUniforms, 'focus'>
 
 export interface DitherOptions {
   /** Size of one dither cell, in CSS px (clamped to 2..12). */

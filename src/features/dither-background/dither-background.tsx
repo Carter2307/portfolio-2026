@@ -1,19 +1,27 @@
-import { useRef } from 'react'
+import { useRef, type RefObject } from 'react'
 import { DEFAULT_SHADER } from './shaders'
 import type { DitherOptions, DitherStatus } from './lib/types'
 import { useDitherBackground } from './use-dither-background'
 
 interface DitherBackgroundProps extends Partial<DitherOptions> {
   onStatusChange?: (status: DitherStatus) => void
+  /** Content column that shaders such as « Averse » keep calm, so it stays readable. */
+  focusRef?: RefObject<HTMLElement | null>
 }
 
 /**
  * Fixed, pointer-reactive dithered background behind the page.
  * Without WebGPU, or with `shader={null}`, the canvas fades out and the page's own background shows through.
  */
-export function DitherBackground({ cell = 4, speed = 1, shader = DEFAULT_SHADER, onStatusChange }: DitherBackgroundProps) {
+export function DitherBackground({
+  cell = 4,
+  speed = 1,
+  shader = DEFAULT_SHADER,
+  onStatusChange,
+  focusRef,
+}: DitherBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const status = useDitherBackground(canvasRef, { cell, speed, shader }, onStatusChange)
+  const status = useDitherBackground(canvasRef, { cell, speed, shader }, { onStatusChange, focusRef })
   const visible = status === 'ready' && shader !== null
 
   return (

@@ -1,4 +1,4 @@
-import { shaderSource, type ShaderId } from '../shaders'
+import { getShader, shaderSource, type ShaderId } from '../shaders'
 import type { FrameUniforms } from './types'
 
 // Must match the `Uniforms` struct in common.wgsl: 8 × f32 = 32 bytes.
@@ -126,6 +126,8 @@ export class DitherRenderer {
     data[3] = frame.mouse[1]
     data[4] = frame.time
     data[5] = frame.amount
+    data[6] = frame.focus[0]
+    data[7] = frame.focus[1]
     this.device.queue.writeBuffer(this.uniformBuffer, 0, data)
 
     const encoder = this.device.createCommandEncoder()
@@ -161,7 +163,12 @@ export class DitherRenderer {
       label: `${id} pipeline`,
       layout: this.pipelineLayout,
       vertex: { module, entryPoint: 'vs_main' },
-      fragment: { module, entryPoint: 'fs_main', targets: [{ format: this.format }] },
+      fragment: {
+        module,
+        entryPoint: 'fs_main',
+        targets: [{ format: this.format }],
+        constants: getShader(id).constants,
+      },
       primitive: { topology: 'triangle-list' },
     })
     // Forget failures so a later request can retry.

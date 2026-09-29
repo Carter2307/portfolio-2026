@@ -9,7 +9,7 @@ struct Uniforms {
   mouse: vec2f,      // pointer position, in cells, origin bottom-left
   time: f32,
   amount: f32,       // pointer influence, 0..1
-  _pad: vec2f,
+  focus: vec2f,      // readable column [left, right], in cells; left >= right means none
 }
 
 @group(0) @binding(0) var<uniform> u: Uniforms;
@@ -18,6 +18,10 @@ struct Uniforms {
 const DUNE = vec3f(0.851, 0.769, 0.639);
 const SAND = vec3f(0.935, 0.878, 0.796);
 const PAPER = vec3f(0.984, 0.969, 0.941);
+
+// Set per variant at pipeline creation (see `constants` in shaders/index.ts):
+// swaps the lightest tone for pure white.
+override WHITE_BACKGROUND: bool = false;
 
 @vertex
 fn vs_main(@builtin(vertex_index) index: u32) -> @builtin(position) vec4f {
@@ -93,5 +97,6 @@ fn dither(lum: f32, px: vec2f) -> vec3f {
   let levels = lum * 4.0;
   let threshold = bayer8(px) + 0.5 / 64.0;
   let k = clamp(floor(levels) + step(threshold, fract(levels)), 0.0, 4.0) / 4.0;
-  return mix(mix(DUNE, SAND, smoothstep(0.0, 0.5, k)), PAPER, smoothstep(0.5, 1.0, k));
+  let light = select(PAPER, vec3f(1.0), WHITE_BACKGROUND);
+  return mix(mix(DUNE, SAND, smoothstep(0.0, 0.5, k)), light, smoothstep(0.5, 1.0, k));
 }
