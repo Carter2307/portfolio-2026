@@ -1,0 +1,83 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/newsreader/opsz.css';
+@import '@fontsource-variable/newsreader/opsz-italic.css';
+@import '@fontsource-variable/pixelify-sans/wght.css';
+
+@theme {
+  --color-ink: #21190f;
+  --color-ink-soft: #45372a;
+  --color-rust: #8c3f0e;
+  --color-moss: #2f6b3f;
+  --color-paper: #fbf8f2;
+  --color-sand: #efe4d2;
+  --color-dune: #d9c4a3;
+
+  --font-serif: 'Newsreader Variable', Georgia, serif;
+  --font-pixel: 'Pixelify Sans Variable', ui-monospace, monospace;
+
+  --ease-rise: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --animate-rise: rise 0.9s var(--ease-rise) both;
+  --animate-blink: blink 1.6s steps(1, end) infinite;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes blink {
+    0%,
+    50% {
+      opacity: 1;
+    }
+    51%,
+    100% {
+      opacity: 0.15;
+    }
+  }
+}
+
+@layer base {
+  body {
+    background: var(--color-sand);
+    color: var(--color-ink);
+    font-family: var(--font-serif);
+  }
+
+  a {
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    text-decoration-color: color-mix(in srgb, var(--color-ink) 45%, transparent);
+  }
+
+  a:hover {
+    color: var(--color-rust);
+    text-decoration-color: var(--color-rust);
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+}
