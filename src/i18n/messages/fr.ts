@@ -1,6 +1,9 @@
 import type { Messages } from './types'
 
 export const fr: Messages = {
+  boot: {
+    loading: 'Chargement du fond',
+  },
   sections: {
     experience: 'Expérience',
     projects: 'Projets',

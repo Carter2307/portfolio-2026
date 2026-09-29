@@ -1,6 +1,6 @@
 # Portfolio — React · Vite · TypeScript · React Router · WebGPU
 
-Portfolio de Roger Bentcha : une page, un fond animé en WebGPU (4 shaders au choix).
+Portfolio de Roger Bentcha : une page, un fond animé en WebGPU (5 shaders au choix).
 
 ```bash
 npm install
@@ -16,6 +16,7 @@ src/
 ├── main.tsx                      # point d'entrée : détection de langue, I18nProvider, RouterProvider
 ├── app/
 │   ├── router.tsx                # routes (createBrowserRouter)
+│   ├── boot/                     # écran de chargement + déroulé (loading → complete → leaving → done)
 │   └── layouts/root-layout.tsx   # coque persistante : fond WebGPU + <main> + footer
 ├── pages/
 │   ├── home/                     # page d'accueil + ses sections (hero, contact)
@@ -24,7 +25,8 @@ src/
 ├── features/
 │   └── dither-background/        # fond animé WebGPU + son panneau, isolés du reste
 │       ├── dither-background.tsx # <canvas> React
-│       ├── shader-panel.tsx      # panneau bas-gauche : choix du shader (ouvert par défaut)
+│       ├── shader-panel.tsx      # panneau bas-gauche : choix du shader (fermé par défaut)
+│       ├── pick-shader.ts        # tirage aléatoire du shader à chaque chargement
 │       ├── use-dither-background.ts
 │       ├── shaders/
 │       │   ├── common.wgsl       # uniforms, bruit, tramage Bayer 8×8, palette, fs_main
@@ -32,6 +34,7 @@ src/
 │       │   ├── ripples.wgsl      # Ondes : interférences de sources mobiles
 │       │   ├── relief.wgsl       # Relief : carte topographique en isolignes
 │       │   ├── cells.wgsl        # Cellules : Voronoï animé
+│       │   ├── rain.wgsl         # Averse : briques 3×3 sur fond blanc, atténuées derrière le texte
 │       │   └── index.ts          # registre : id + source WGSL assemblée (libellés dans i18n/messages)
 │       └── lib/
 │           ├── renderer.ts       # WebGPU : device, pipelines (cache par shader), uniforms, draw
@@ -58,6 +61,11 @@ le site s'affiche en français et `<html lang>` suit.
 TypeScript signale toute clé manquante dans une des deux langues.
 
 ## Fond WebGPU
+
+À chaque chargement, un shader est tiré au hasard (jamais deux fois de suite le même, grâce au
+localStorage). Un écran de chargement (R pixel, barre, nom du fond) masque l'initialisation :
+il attend les polices et le GPU, reste au moins 0,7 s et au plus 3 s, et les animations d'entrée
+de la page attendent son départ (`<html data-booting>`).
 
 Chaque shader ne définit qu'une fonction `field(px, uv) -> f32` (luminance 0..1) ;
 `common.wgsl` s'occupe du tramage et de la palette, donc tous partagent le même rendu pixel.
