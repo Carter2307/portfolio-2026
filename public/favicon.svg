@@ -1,1 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" shape-rendering="crispEdges"><rect width="16" height="16" fill="#EFE4D2"/><rect x="4" y="4" width="8" height="8" fill="#2F6B3F"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 456 456">
+  <style>
+    path { fill: #21190F; }
+    @media (prefers-color-scheme: dark) { path { fill: #EFE4D2; } }
+  </style>
+  <!-- Pixel "R" (285 × 388), centred on its bounding box: 85.5 side margins, 34 top/bottom. -->
+  <path fill-rule="evenodd" transform="translate(85.5 34)" d="M53 0H231V53H285V230H231V283H205V314H257V388H187V336H133V283H70V388H0V53H53ZM70 75H213V208H70Z"/>
+</svg>

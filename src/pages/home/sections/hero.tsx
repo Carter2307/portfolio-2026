@@ -1,8 +1,9 @@
 import { StatusBadge } from '@/components/ui/status-badge'
-import { profile } from '@/content/portfolio'
+import { useI18n } from '@/i18n'
 import { revealDelay } from '@/lib/motion'
 
 export function Hero() {
+  const { profile } = useI18n().content
   return (
     <header className="flex animate-rise flex-col gap-7" style={revealDelay(0)}>
       <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
@@ -19,7 +20,7 @@ export function Hero() {
         {profile.role}
       </p>
 
-      <p className="m-0 max-w-[34em] text-[clamp(19px,3.4vw,22px)] leading-[1.5] text-ink">{profile.intro}</p>
+      <p className="m-0 max-w-[34em] text-[clamp(17px,3vw,19px)] leading-[1.55] text-ink">{profile.intro}</p>
     </header>
   )
 }

@@ -1,9 +1,10 @@
-import { profile } from '@/content/portfolio'
+import { useI18n } from '@/i18n'
 import { revealDelay } from '@/lib/motion'
 
 const YEAR = new Date().getFullYear()
 
 export function SiteFooter({ revealOrder = 5 }: { revealOrder?: number }) {
+  const { profile } = useI18n().content
   return (
     <footer
       className="flex animate-rise flex-col gap-1.5 font-pixel text-[13px] leading-[1.6] tracking-[0.08em] text-ink-soft uppercase"
