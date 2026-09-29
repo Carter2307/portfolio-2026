@@ -17,11 +17,11 @@ const frame =
 const pixelCaps = 'font-pixel text-[13px] tracking-[0.12em] uppercase'
 const focusRing = 'focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-ink'
 
-/** Bottom-left picker for the background shader. Open by default, collapses to a small tab. */
+/** Bottom-left picker for the background shader. Starts collapsed as a small tab. */
 export function ShaderPanel({ value, onChange }: ShaderPanelProps) {
   const { background } = useI18n().t
   const labelOf = (id: ShaderId | null) => background.options[id ?? 'none']
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   const panelId = useId()
   const titleId = useId()
 
