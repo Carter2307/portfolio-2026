@@ -4,20 +4,18 @@ import drift from './drift.wgsl?raw'
 import relief from './relief.wgsl?raw'
 import ripples from './ripples.wgsl?raw'
 
+/** Display names live in the i18n messages (`background.options`). */
 export interface ShaderDefinition {
   id: string
-  label: string
-  /** Short technical hint shown next to the label. */
-  technique: string
   /** Variant body: must define `fn field(px: vec2f, uv: vec2f) -> f32`. */
   body: string
 }
 
 export const SHADERS = [
-  { id: 'drift', label: 'Dérive', technique: 'Bruit fbm', body: drift },
-  { id: 'ripples', label: 'Ondes', technique: 'Interférences', body: ripples },
-  { id: 'relief', label: 'Relief', technique: 'Isolignes', body: relief },
-  { id: 'cells', label: 'Cellules', technique: 'Voronoï', body: cells },
+  { id: 'drift', body: drift },
+  { id: 'ripples', body: ripples },
+  { id: 'relief', body: relief },
+  { id: 'cells', body: cells },
 ] as const satisfies readonly ShaderDefinition[]
 
 export type ShaderId = (typeof SHADERS)[number]['id']

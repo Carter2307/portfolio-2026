@@ -14,7 +14,7 @@ export function RootLayout() {
   const [shader, setShader] = useState<ShaderId | null>(DEFAULT_SHADER)
   const [backgroundStatus, setBackgroundStatus] = useState(initialDitherStatus)
 
-  // "Aucun" means a plain white page; the gradient is otherwise the no-WebGPU fallback.
+  // No shader (null) means a plain white page; the gradient is otherwise the no-WebGPU fallback.
   const surface = shader === null ? 'bg-white' : 'bg-linear-160/srgb bg-fixed from-paper via-sand via-55% to-dune'
 
   return (

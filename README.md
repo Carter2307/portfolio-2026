@@ -13,7 +13,7 @@ npm run lint     # oxlint
 
 ```
 src/
-├── main.tsx                      # point d'entrée : RouterProvider
+├── main.tsx                      # point d'entrée : détection de langue, I18nProvider, RouterProvider
 ├── app/
 │   ├── router.tsx                # routes (createBrowserRouter)
 │   └── layouts/root-layout.tsx   # coque persistante : fond WebGPU + <main> + footer
@@ -32,7 +32,7 @@ src/
 │       │   ├── ripples.wgsl      # Ondes : interférences de sources mobiles
 │       │   ├── relief.wgsl       # Relief : carte topographique en isolignes
 │       │   ├── cells.wgsl        # Cellules : Voronoï animé
-│       │   └── index.ts          # registre : id, libellé, source WGSL assemblée
+│       │   └── index.ts          # registre : id + source WGSL assemblée (libellés dans i18n/messages)
 │       └── lib/
 │           ├── renderer.ts       # WebGPU : device, pipelines (cache par shader), uniforms, draw
 │           ├── scene.ts          # état pur : temps, pointeur lissé
@@ -41,12 +41,21 @@ src/
 ├── components/
 │   ├── ui/                       # briques visuelles (Section, TimelineEntry, DottedLeader…)
 │   └── layout/                   # SiteFooter
-├── content/                      # contenu typé (expériences, projets, formation, contact)
+├── i18n/                         # langue : détection, contexte, textes d'interface (messages/en.ts, fr.ts)
+├── content/                      # contenu typé du CV : en.ts, fr.ts (+ shared.ts : liens, identité)
 ├── lib/motion.ts                 # décalage des animations d'entrée
 └── styles/index.css              # Tailwind v4 : tokens (@theme), styles de base
 ```
 
-Le contenu se modifie uniquement dans `src/content/portfolio.ts`.
+## Langues
+
+Anglais par défaut. Si la langue principale du navigateur est le français (`fr`, `fr-FR`, `fr-CA`…),
+le site s'affiche en français et `<html lang>` suit.
+
+- Contenu du CV : `src/content/en.ts` et `src/content/fr.ts` (même type `Portfolio`).
+- Textes d'interface : `src/i18n/messages/en.ts` et `fr.ts` (même type `Messages`).
+
+TypeScript signale toute clé manquante dans une des deux langues.
 
 ## Fond WebGPU
 

@@ -32,3 +32,14 @@ export interface Profile {
   location: string
   offScreen: string
 }
+
+export interface Portfolio {
+  profile: Profile
+  experience: readonly TimelineEntry[]
+  projects: readonly TimelineEntry[]
+  education: readonly TimelineEntry[]
+  contact: {
+    pitch: string
+    links: readonly ContactLink[]
+  }
+}
