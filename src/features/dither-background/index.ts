@@ -1,5 +1,6 @@
 export { DitherBackground } from './dither-background'
 export { ShaderPanel } from './shader-panel'
+export { pickRandomShader } from './pick-shader'
 export { DEFAULT_SHADER, SHADERS, type ShaderId } from './shaders'
 export { initialDitherStatus } from './use-dither-background'
 export type { DitherOptions, DitherStatus } from './lib/types'

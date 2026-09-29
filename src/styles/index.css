@@ -18,6 +18,7 @@
   --ease-rise: cubic-bezier(0.2, 0.7, 0.2, 1);
   --animate-rise: rise 0.9s var(--ease-rise) both;
   --animate-blink: blink 1.6s steps(1, end) infinite;
+  --animate-reveal: reveal 0.9s steps(8, end) both;
 
   @keyframes rise {
     from {
@@ -27,6 +28,16 @@
     to {
       opacity: 1;
       transform: none;
+    }
+  }
+
+  /* Loading screen: the monogram builds up from the bottom, one pixel row at a time. */
+  @keyframes reveal {
+    from {
+      clip-path: inset(100% 0 0 0);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
     }
   }
 
@@ -80,4 +91,13 @@
       transition: none !important;
     }
   }
+}
+
+/*
+ * Set in index.html, removed when the loading screen leaves: entrance animations wait for it.
+ * Unlayered on purpose: it must beat the `animate-rise` utility, whose `animation` shorthand
+ * would otherwise reset the play state (utilities come after every other layer).
+ */
+html[data-booting] .animate-rise {
+  animation-play-state: paused;
 }

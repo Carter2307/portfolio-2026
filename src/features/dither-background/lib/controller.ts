@@ -14,6 +14,8 @@ export interface DitherController {
 
 interface MountOptions extends DitherOptions {
   onStatusChange?: (status: DitherStatus) => void
+  /** Element whose horizontal span shaders may keep calm for reading (e.g. `<main>`). */
+  focusElement?: HTMLElement | null
 }
 
 const clampCell = (cell: number) => Math.max(2, Math.min(12, Math.round(cell) || 4))
@@ -26,12 +28,15 @@ const clampCell = (cell: number) => Math.max(2, Math.min(12, Math.round(cell) ||
  * compiled pipelines are kept so picking a shader again is instant.
  */
 export function mountDitherBackground(canvas: HTMLCanvasElement, initial: MountOptions): DitherController {
-  const { onStatusChange, ...rest } = initial
+  const { onStatusChange, focusElement, ...rest } = initial
   const options: DitherOptions = { ...rest }
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const scene = new DitherScene(reducedMotion)
   const aborter = new AbortController()
   const grid = { cell: clampCell(options.cell), width: 0, height: 0 }
+
+  // Horizontal span of the reading column, in CSS px.
+  const focus = { left: 0, right: 0 }
 
   let renderer: DitherRenderer | null = null
   let raf = 0
@@ -55,7 +60,10 @@ export function mountDitherBackground(canvas: HTMLCanvasElement, initial: MountO
     if (!renderer || options.shader === null) return
     fit()
     scene.ease()
-    renderer.render(scene.uniforms(grid.width, grid.height))
+    renderer.render({
+      ...scene.uniforms(grid.width, grid.height),
+      focus: [focus.left / grid.cell, focus.right / grid.cell],
+    })
   }
 
   const loop = (now: number) => {
@@ -101,7 +109,24 @@ export function mountDitherBackground(canvas: HTMLCanvasElement, initial: MountO
   window.addEventListener('pointermove', onPointerMove, { passive: true, signal })
   document.addEventListener('pointerleave', onPointerLeave, { signal })
   window.addEventListener('blur', onPointerLeave, { signal })
-  window.addEventListener('resize', redrawIfStill, { signal })
+  const measureFocus = () => {
+    if (!focusElement) return
+    const rect = focusElement.getBoundingClientRect()
+    focus.left = rect.left
+    focus.right = rect.right
+  }
+  const onResize = () => {
+    measureFocus()
+    redrawIfStill()
+  }
+  measureFocus()
+
+  window.addEventListener('resize', onResize, { signal })
+  if (focusElement) {
+    const observer = new ResizeObserver(onResize)
+    observer.observe(focusElement)
+    signal.addEventListener('abort', () => observer.disconnect())
+  }
 
   const start = async () => {
     let next: DitherRenderer | null = null

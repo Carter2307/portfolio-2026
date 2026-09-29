@@ -1,6 +1,9 @@
 import type { Messages } from './types'
 
 export const en: Messages = {
+  boot: {
+    loading: 'Loading background',
+  },
   sections: {
     experience: 'Experience',
     projects: 'Projects',
@@ -17,6 +20,7 @@ export const en: Messages = {
       ripples: { label: 'Ripples', technique: 'Interference' },
       relief: { label: 'Relief', technique: 'Contours' },
       cells: { label: 'Cells', technique: 'Voronoi' },
+      rain: { label: 'Downpour', technique: 'Shards' },
       none: { label: 'None', technique: 'Plain white' },
     },
   },

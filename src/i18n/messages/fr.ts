@@ -1,6 +1,9 @@
 import type { Messages } from './types'
 
 export const fr: Messages = {
+  boot: {
+    loading: 'Chargement du fond',
+  },
   sections: {
     experience: 'Expérience',
     projects: 'Projets',
@@ -17,6 +20,7 @@ export const fr: Messages = {
       ripples: { label: 'Ondes', technique: 'Interférences' },
       relief: { label: 'Relief', technique: 'Isolignes' },
       cells: { label: 'Cellules', technique: 'Voronoï' },
+      rain: { label: 'Averse', technique: 'Éclats' },
       none: { label: 'Aucun', technique: 'Fond blanc' },
     },
   },

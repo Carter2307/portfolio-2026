@@ -1,4 +1,4 @@
-import type { FrameUniforms } from './types'
+import type { SceneUniforms } from './types'
 
 const MOUSE_EASING = 0.12
 const AMOUNT_EASING = 0.06
@@ -52,7 +52,7 @@ export class DitherScene {
     this.amount += (this.targetAmount - this.amount) * AMOUNT_EASING
   }
 
-  uniforms(width: number, height: number): FrameUniforms {
+  uniforms(width: number, height: number): SceneUniforms {
     return {
       resolution: [width, height],
       mouse: [this.mouseX, this.mouseY],

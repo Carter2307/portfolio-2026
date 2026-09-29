@@ -8,6 +8,10 @@ export interface ShaderLabel {
 
 /** Interface strings. Portfolio content lives in `src/content`. */
 export interface Messages {
+  boot: {
+    /** Followed by the shader drawn this visit, e.g. "Loading background · Drift". */
+    loading: string
+  }
   sections: {
     experience: string
     projects: string
