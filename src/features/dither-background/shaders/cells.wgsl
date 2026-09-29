@@ -2,6 +2,7 @@
 // Pointer: pushes the lattice outward like a lens and lights the cells beneath.
 
 const SCALE = 5.0;
+const OPACITY = 0.35; // how strongly the cells are drawn over the page
 
 fn field(px: vec2f, uv: vec2f) -> f32 {
   let t = u.time * 0.25;
@@ -33,5 +34,6 @@ fn field(px: vec2f, uv: vec2f) -> f32 {
   let seam = 1.0 - smoothstep(0.03, 0.14, f2 - f1);
   let v = 0.88 - 0.5 * f1 - 0.35 * seam;
 
-  return mix(backdrop(px), v, 0.55) + 0.18 * u.amount * exp(-d * d * 14.0);
+  let cells = mix(backdrop(px), v, 0.55);
+  return veil(px, cells, OPACITY) + 0.18 * u.amount * exp(-d * d * 14.0);
 }

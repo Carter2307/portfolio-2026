@@ -46,6 +46,11 @@ fn backdrop(px: vec2f) -> f32 {
   return 0.55 * (px.y / u.resolution.y) + 0.25 * (px.x / u.resolution.x) + 0.2;
 }
 
+/** Draws `lum` over a light page at `opacity` (0 = plain page, 1 = full strength). */
+fn veil(px: vec2f, lum: f32, opacity: f32) -> f32 {
+  return mix(mix(backdrop(px), 1.0, 0.5), lum, opacity);
+}
+
 /** Pointer position in `uv` space (height-normalised). */
 fn pointer() -> vec2f {
   return u.mouse / u.resolution.y;

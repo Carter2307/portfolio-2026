@@ -16,7 +16,8 @@ const DUST_LIFE = 0.15;      // seconds
 const DROPS_PER_LANE = 3;
 const LANE_REACH = 2;        // neighbouring lanes checked on each side (shards travel far)
 const UMBRELLA = 10.0;       // pointer half-width, in cells
-const CALM_LEVEL = 0.2;      // rain strength kept behind the content column
+const OPACITY = 0.35;        // how strongly the rain is drawn over the white page
+const CALM_LEVEL = 0.2;      // share of that strength kept behind the content column
 const CALM_EDGE = 10.0;      // soft edge of the calm zone, in cells
 
 // Darkness (0..1) that one drop contributes at `px`.
@@ -116,5 +117,6 @@ fn field(px: vec2f, uv: vec2f) -> f32 {
   var lum = 1.0;                    // plain white page
   lum = mix(lum, 0.45, backLayer);  // distant bricks: mid tone
   lum = mix(lum, 0.0, frontLayer);  // near bricks: darkest tone
-  return mix(1.0, lum, calm(px.x));
+  // Fade toward white (not `veil`, which fades toward the beige page).
+  return mix(1.0, lum, OPACITY * calm(px.x));
 }

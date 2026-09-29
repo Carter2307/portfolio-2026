@@ -1,6 +1,8 @@
 // Ondes — interference of three wandering wave sources.
 // Pointer: becomes a fourth, faster source.
 
+const OPACITY = 0.35; // how strongly the waves are drawn over the page
+
 fn wave(uv: vec2f, origin: vec2f, frequency: f32, speed: f32) -> f32 {
   let d = distance(uv, origin);
   return sin(d * frequency - u.time * speed) / (1.0 + 2.0 * d);
@@ -20,5 +22,5 @@ fn field(px: vec2f, uv: vec2f) -> f32 {
   var w = wave(p, a, 26.0, 1.1) + wave(p, b, 22.0, 0.9) + wave(p, c, 30.0, 1.3);
   w += 1.4 * u.amount * wave(p, pointer(), 34.0, 2.4);
 
-  return mix(backdrop(px), 0.5 + 0.3 * w, 0.6);
+  return veil(px, mix(backdrop(px), 0.5 + 0.3 * w, 0.6), OPACITY);
 }

@@ -1,6 +1,8 @@
 // Dérive — domain-warped fbm noise drifting slowly.
 // Pointer: a decaying radial wave bends the noise, plus a soft glow.
 
+const OPACITY = 0.35; // how strongly the noise is drawn over the page
+
 fn field(px: vec2f, uv: vec2f) -> f32 {
   let t = u.time * 0.05;
   let d = distance(uv, pointer());
@@ -18,5 +20,6 @@ fn field(px: vec2f, uv: vec2f) -> f32 {
   );
   let v = smoothstep(0.28, 0.72, fbm(p + 2.6 * r));
 
-  return mix(backdrop(px), v, 0.55) + 0.2 * u.amount * exp(-d * d * 14.0);
+  let noiseLum = mix(backdrop(px), v, 0.55);
+  return veil(px, noiseLum, OPACITY) + 0.2 * u.amount * exp(-d * d * 14.0);
 }
