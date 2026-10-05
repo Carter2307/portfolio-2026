@@ -33,11 +33,6 @@ export const fr: Portfolio = {
       period: '2023 - 2024',
       subtitle: 'ESGI Nantes',
     },
-    {
-      title: 'Classe préparatoire ATS',
-      period: '2022 - 2023',
-      subtitle: 'Lycée François Arago, Reims',
-    },
   ],
   contact: {
     pitch: 'Écrivez-moi, je réponds vite.',

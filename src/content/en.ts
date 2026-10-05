@@ -33,11 +33,6 @@ export const en: Portfolio = {
       period: '2023 - 2024',
       subtitle: 'ESGI Nantes',
     },
-    {
-      title: 'Engineering preparatory class (ATS)',
-      period: '2022 - 2023',
-      subtitle: 'Lycée François Arago, Reims',
-    },
   ],
   contact: {
     pitch: "Write to me, I'll get back to you quickly.",
