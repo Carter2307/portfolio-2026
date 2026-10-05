@@ -1,7 +1,6 @@
-export const LOCALES = ['en', 'fr'] as const
-export type Locale = (typeof LOCALES)[number]
+export type Locale = 'en' | 'fr'
 
-export const DEFAULT_LOCALE: Locale = 'en'
+const DEFAULT_LOCALE: Locale = 'en'
 
 /**
  * English by default; French when the browser's default (first preferred)

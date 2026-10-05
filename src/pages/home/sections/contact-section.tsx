@@ -1,27 +1,40 @@
-import { DottedLeader } from '@/components/ui/dotted-leader'
+import * as motion from 'motion/react-m'
 import { Section } from '@/components/ui/section'
 import { TextLink } from '@/components/ui/text-link'
 import { useI18n } from '@/i18n'
+import { useTextEntrance } from '@/lib/motion'
 
-export function ContactSection({ number, revealOrder }: { number: number; revealOrder: number }) {
+export function ContactSection({ number }: { number: number }) {
   const { t, content } = useI18n()
+  const entrance = useTextEntrance()
   return (
-    <Section id="contact" number={number} title={t.sections.contact} revealOrder={revealOrder} compact>
-      <p className="m-0 max-w-[30em] text-[clamp(22px,4.4vw,30px)] leading-[1.3] font-normal text-ink">
+    <Section id="contact" number={number} title={t.sections.contact}>
+      <motion.p {...entrance.single} className="m-0">
         {content.contact.pitch}
-      </p>
+      </motion.p>
 
-      <ul className="m-0 flex list-none flex-col gap-3.5 p-0">
+      <motion.ul {...entrance.group} className="m-0 flex list-none flex-col p-0">
         {content.contact.links.map((link) => (
-          <li key={link.label} className="flex items-baseline gap-3">
-            <span className="font-pixel text-[14px] tracking-[0.12em] text-ink uppercase">{link.label}</span>
-            <DottedLeader />
-            <TextLink href={link.href} className="text-[18px]">
-              {link.text}
+          <motion.li key={link.label} {...entrance.item} className="flex items-baseline">
+            <span>{link.label}</span>
+            <TextLink
+              href={link.href}
+              className={link.href.startsWith('mailto:') ? 'email-link' : undefined}
+            >
+              {link.href.startsWith('mailto:') ? (
+                <>
+                  <span className="email-mask" aria-hidden="true">
+                    ••••••••@••••••••••
+                  </span>
+                  <span className="email-address">{link.text}</span>
+                </>
+              ) : (
+                link.text
+              )}
             </TextLink>
-          </li>
+          </motion.li>
         ))}
-      </ul>
+      </motion.ul>
     </Section>
   )
 }

@@ -1,42 +1,26 @@
 import type { Messages } from './types'
 
 export const fr: Messages = {
-  boot: {
-    loading: 'Chargement du fond',
+  theme: { light: 'Passer au thème clair', dark: 'Passer au thème sombre' },
+  navigation: {
+    label: 'Navigation du portfolio',
+    about: 'À propos',
+    skip: 'Aller au contenu',
   },
   sections: {
     experience: 'Expérience',
-    projects: 'Projets',
     education: 'Formation',
     contact: 'Contact',
   },
-  background: {
-    title: 'Fond animé',
-    close: 'Fermer',
-    tab: 'Fond',
-    legend: 'Type de shader',
-    options: {
-      drift: { label: 'Dérive', technique: 'Bruit fbm' },
-      ripples: { label: 'Ondes', technique: 'Interférences' },
-      relief: { label: 'Relief', technique: 'Isolignes' },
-      cells: { label: 'Cellules', technique: 'Voronoï' },
-      rain: { label: 'Averse', technique: 'Éclats' },
-      stars: { label: 'Constellations', technique: 'Étoiles' },
-      dunes: { label: 'Dunes', technique: 'Rides' },
-      grass: { label: 'Herbes', technique: 'Brins' },
-      aurora: { label: 'Aurores', technique: 'Rideaux' },
-      none: { label: 'Aucun', technique: 'Fond blanc' },
-    },
-  },
   notFound: {
-    pageTitle: 'Page introuvable · Roger Bentcha',
+    pageTitle: 'Page introuvable · Roger BENTCHA',
     eyebrow: 'Erreur 404',
     title: 'Hors carte',
     body: "Cette page n'existe pas ou a été déplacée.",
     back: 'Retour au portfolio',
   },
   routeError: {
-    pageTitle: 'Erreur · Roger Bentcha',
+    pageTitle: 'Erreur · Roger BENTCHA',
     eyebrow: 'Quelque chose a cassé',
     unknown: 'Erreur inconnue',
     back: "Revenir à l'accueil",
