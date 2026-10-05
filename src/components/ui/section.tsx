@@ -1,32 +1,31 @@
 import type { ReactNode } from 'react'
-import { revealDelay } from '@/lib/motion'
+import * as motion from 'motion/react-m'
+import { useTextEntrance } from '@/lib/motion'
 
 interface SectionProps {
-  /** Shown as a two-digit prefix: 1 → "01." */
+  /** Shown as a two-digit prefix: 1 → "01". */
   number: number
   title: string
-  /** Entrance stagger position (see `revealDelay`). */
-  revealOrder: number
-  /** Tighter spacing for short entries (education, contact). */
-  compact?: boolean
   id?: string
   children: ReactNode
 }
 
-export function Section({ number, title, revealOrder, compact = false, id, children }: SectionProps) {
+export function Section({ number, title, id, children }: SectionProps) {
+  const entrance = useTextEntrance()
   return (
     <section
       id={id}
       aria-labelledby={id ? `${id}-title` : undefined}
-      className={`flex animate-rise flex-col ${compact ? 'gap-7' : 'gap-8'}`}
-      style={revealDelay(revealOrder)}
+      className="portfolio-section flex flex-col"
     >
-      <h2
+      <motion.h2
+        {...entrance.single}
         id={id ? `${id}-title` : undefined}
-        className="m-0 font-pixel text-[15px] font-medium tracking-[0.18em] text-ink uppercase"
+        className="section-heading m-0"
       >
-        {String(number).padStart(2, '0')}. {title}
-      </h2>
+        <span className="section-number">{String(number).padStart(2, '0')}</span>{' '}
+        <span className="section-title">{title}</span>
+      </motion.h2>
       {children}
     </section>
   )

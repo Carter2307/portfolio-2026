@@ -8,6 +8,6 @@ import { fr } from './messages/fr'
 const messages = { en, fr }
 
 export function I18nProvider({ locale, children }: { locale: Locale; children: ReactNode }) {
-  const value = useMemo(() => ({ locale, t: messages[locale], content: portfolio[locale] }), [locale])
+  const value = useMemo(() => ({ t: messages[locale], content: portfolio[locale] }), [locale])
   return <I18nContext value={value}>{children}</I18nContext>
 }

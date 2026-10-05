@@ -1,84 +1,66 @@
-# Portfolio — React · Vite · TypeScript · React Router · WebGPU
+# Portfolio — React · Vite · TypeScript · ferry-shaders · ferry-ui
 
-Portfolio de Roger Bentcha : une page, un fond animé en WebGPU (9 shaders au choix).
+Portfolio bilingue de Roger BENTCHA, avec une interface sobre et dense.
 
 ```bash
 npm install
 npm run dev      # http://localhost:5173
-npm run build    # tsc -b + vite build
+npm run build    # TypeScript + production build
 npm run lint     # oxlint
 ```
 
+## Interface
+
+La page `/` propose une navigation latérale sur ordinateur et horizontale sur mobile, un fond
+fixe clair ou sombre, le nom « Roger BENTCHA » et des titres en Pixelify Sans. Le texte courant est
+en 13 px. Les expériences affichent uniquement l’entreprise, les dates et le rôle ; les formations
+affichent le diplôme, les dates et l’école en plus petit. Les dates restent à droite sur la ligne
+du titre, y compris sur mobile. Les projets sont retirés. L’adresse e-mail est masquée par défaut
+et se révèle au survol ou au focus clavier.
+
+Motion React révèle les blocs de texte une fois à leur entrée dans l’écran, à partir du nom :
+fondu de 450 ms, déplacement de 4 px et décalage de 70 ms entre les textes.
+`prefers-reduced-motion` désactive l’effet. Les fonctions d’animation sont chargées séparément
+avec `LazyMotion`.
+
+## Shaders
+
+Deux composants `<PixelField>` du paquet npm `ferry-shaders` reprennent le rendu de sa documentation.
+La bande supérieure couvre toute la largeur depuis le haut du document (520 px sur ordinateur,
+340 px sur mobile), et la bande inférieure remonte depuis le bas du footer. Les pixels neutres
+et bleus suivent les tokens de ferry-ui. Vitesse 0,15, variations d’opacité légères ; sans WebGPU,
+un motif de pixels CSS fixe prend le relais.
+
+La bibliothèque partage le device GPU entre les canvas, suspend les animations hors écran et
+suit `prefers-reduced-motion` (une image fixe). Aucun WGSL ni moteur WebGPU local.
+
 ## Structure
 
-```
+```text
 src/
-├── main.tsx                      # point d'entrée : détection de langue, I18nProvider, RouterProvider
-├── app/
-│   ├── router.tsx                # routes (createBrowserRouter)
-│   ├── boot/                     # écran de chargement + déroulé (loading → complete → leaving → done)
-│   └── layouts/root-layout.tsx   # coque persistante : fond WebGPU + <main> + footer
-├── pages/
-│   ├── home/                     # page d'accueil + ses sections (hero, contact)
-│   ├── not-found/                # 404
-│   └── route-error/              # ErrorBoundary de route
-├── features/
-│   └── dither-background/        # fond animé WebGPU + son panneau, isolés du reste
-│       ├── dither-background.tsx # <canvas> React
-│       ├── shader-panel.tsx      # panneau bas-gauche : choix du shader (fermé par défaut)
-│       ├── pick-shader.ts        # tirage aléatoire du shader à chaque chargement
-│       ├── use-dither-background.ts
-│       ├── shaders/
-│       │   ├── common.wgsl       # uniforms, bruit, tramage Bayer 8×8, palette, fs_main
-│       │   ├── drift.wgsl        # Dérive : fbm + domain warping (shader d'origine)
-│       │   ├── ripples.wgsl      # Ondes : interférences de sources mobiles
-│       │   ├── relief.wgsl       # Relief : carte topographique en isolignes
-│       │   ├── cells.wgsl        # Cellules : Voronoï animé
-│       │   ├── rain.wgsl         # Averse : briques 3×3 sur fond blanc, atténuées derrière le texte
-│       │   ├── stars.wgsl        # Constellations : étoiles qui scintillent, reliées autour du pointeur
-│       │   ├── dunes.wgsl        # Dunes : rides de sable qui glissent avec le vent
-│       │   ├── grass.wgsl        # Herbes : frange de brins en bas de l'écran, écartés par le pointeur
-│       │   ├── aurora.wgsl       # Aurores : rideaux striés qui ondulent
-│       │   └── index.ts          # registre : id + source WGSL assemblée (libellés dans i18n/messages)
-│       └── lib/
-│           ├── renderer.ts       # WebGPU : device, pipelines (cache par shader), uniforms, draw
-│           ├── scene.ts          # état pur : temps, pointeur lissé
-│           ├── controller.ts     # DOM : taille, events, boucle 30 fps, perte de device
-│           └── types.ts
-├── components/
-│   ├── ui/                       # briques visuelles (Section, TimelineEntry, DottedLeader…)
-│   └── layout/                   # SiteFooter
-├── i18n/                         # langue : détection, contexte, textes d'interface (messages/en.ts, fr.ts)
-├── content/                      # contenu typé du CV : en.ts, fr.ts (+ shared.ts : liens, identité)
-├── lib/motion.ts                 # décalage des animations d'entrée
-└── styles/index.css              # Tailwind v4 : tokens (@theme), styles de base
+├── app/layouts/              # cadre de la page
+├── pages/home/               # page, hero et section contact
+├── pages/not-found/          # page introuvable
+├── pages/route-error/        # gestion des erreurs
+├── features/edge-field/      # PixelField aux bords haut/bas
+├── components/layout/        # navigation et footer
+├── components/ui/            # sections, timeline, liens, monogramme
+├── lib/                      # animations Motion React
+├── i18n/                     # détection de langue et textes d’interface
+├── content/                  # contenu typé du CV en français et anglais
+└── styles/index.css          # Tailwind v4 et styles du portfolio
 ```
 
 ## Langues
 
 Anglais par défaut. Si la langue principale du navigateur est le français (`fr`, `fr-FR`, `fr-CA`…),
-le site s'affiche en français et `<html lang>` suit.
+le site s’affiche en français et `<html lang>` suit. Le contenu du CV reste dans `src/content/en.ts`
+et `fr.ts`, et les textes d’interface dans `src/i18n/messages/`. TypeScript vérifie que les deux
+langues exposent les mêmes clés.
 
-- Contenu du CV : `src/content/en.ts` et `src/content/fr.ts` (même type `Portfolio`).
-- Textes d'interface : `src/i18n/messages/en.ts` et `fr.ts` (même type `Messages`).
+## Thèmes
 
-TypeScript signale toute clé manquante dans une des deux langues.
-
-## Fond WebGPU
-
-À chaque chargement, un shader est tiré au hasard (jamais deux fois de suite le même, grâce au
-localStorage). Un écran de chargement (R pixel, barre, nom du fond) masque l'initialisation :
-il attend les polices et le GPU, reste au moins 0,7 s et au plus 3 s, et les animations d'entrée
-de la page attendent son départ (`<html data-booting>`).
-
-Chaque shader ne définit qu'une fonction `field(px, uv) -> f32` (luminance 0..1) ;
-`common.wgsl` s'occupe du tramage et de la palette, donc tous partagent le même rendu pixel.
-Pour en ajouter un : un fichier `.wgsl` dans `shaders/` + une entrée dans `SHADERS`.
-
-- Fixe au scroll : le canvas est en `position: fixed` et le shader ne dépend pas du scroll.
-- Rendu à 1 pixel par cellule (4 px par défaut), agrandi par CSS en `image-rendering: pixelated`.
-- Sans WebGPU, le canvas reste transparent et le dégradé CSS de la page prend le relais.
-- Option « Aucun » du panneau : boucle de rendu arrêtée (plus aucun travail GPU), fond blanc.
-  Le device et les pipelines restent en mémoire, donc revenir à un shader est instantané.
-- `prefers-reduced-motion` : une image fixe, redessinée seulement au resize.
-- Perte du device GPU : réinitialisation automatique.
+`ThemeProvider` et les boutons `Button` de ferry-ui pilotent les thèmes clair/sombre. Le thème
+suit le système lors de la première visite, puis le choix manuel est mémorisé sous `portfolio-theme`.
+Le script `themeInitScript` de ferry-ui est injecté dans `<head>` par Vite avant le premier affichage.
+Les couleurs du texte, des séparateurs et des shaders suivent les tokens.
