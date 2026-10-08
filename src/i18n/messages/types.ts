@@ -8,9 +8,11 @@ export interface Messages {
   }
   sections: {
     experience: string
+    projects: string
     education: string
     contact: string
   }
+  projects: { openSource: string; mute: string; unmute: string }
   notFound: {
     pageTitle: string
     eyebrow: string

@@ -9,9 +9,11 @@ export const en: Messages = {
   },
   sections: {
     experience: 'Experience',
+    projects: 'Projects',
     education: 'Education',
     contact: 'Contact',
   },
+  projects: { openSource: 'Open source', mute: 'Mute video', unmute: 'Unmute video' },
   notFound: {
     pageTitle: 'Page not found · Roger BENTCHA',
     eyebrow: 'Error 404',
