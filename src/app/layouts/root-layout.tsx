@@ -3,13 +3,15 @@ import { SiteFooter } from '@/components/layout/site-footer'
 import { SiteNavigation } from '@/components/layout/site-navigation'
 import { EdgeField } from '@/features/edge-field/edge-field'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
+import { SmoothScroll } from '@/features/smooth-scroll/smooth-scroll'
 import { useI18n } from '@/i18n'
 
-/** A static editorial page with pixel fields at its two edges. */
+/** Editorial layout with a fixed Drift header and a fading footer. */
 export function RootLayout() {
   const { t } = useI18n()
   return (
     <div className="portfolio">
+      <SmoothScroll />
       <EdgeField edge="top" />
       <div className="page-theme-control">
         <ThemeToggle />
